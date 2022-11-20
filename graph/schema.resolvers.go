@@ -11,6 +11,21 @@ import (
 	"time"
 )
 
+// CreateUser is the resolver for the createUser field.
+func (r *mutationResolver) CreateUser(ctx context.Context, input model.NewUser) (*model.User, error) {
+	panic(fmt.Errorf("not implemented: CreateUser - createUser"))
+	// password, err := bcrypt.GenerateFromPassword([]byte(input.Password), 10)
+	// if err != nil {
+	// 	return nil, err
+	// }
+	// passwordHash := string(password)
+	// user, err := r.UserRepository.CreateUser(ctx, input.Name, input.Email, passwordHash)
+	// if err != nil {
+	// 	return nil, err
+	// }
+	// return user, nil
+}
+
 // CreateTodo is the resolver for the createTodo field.
 func (r *mutationResolver) CreateTodo(ctx context.Context, input model.NewTodo) (*model.Todo, error) {
 	todo := &model.Todo{
