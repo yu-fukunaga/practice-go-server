@@ -1,0 +1,15 @@
+version: '3'
+services:
+  mysql:
+    # image を pull しておかないとダメみたい。(M1 Mac) docker pull mysql@sha256:870892ea5cc8c623b389717c2eedd58248c82a8569d7601ede62a63d527641bd
+    image: mysql@sha256:870892ea5cc8c623b389717c2eedd58248c82a8569d7601ede62a63d527641bd #「sha256:~~」はversionを表す（https://hub.docker.com/layers/rguichard/mysql/8/images/sha256-870892ea5cc8c623b389717c2eedd58248c82a8569d7601ede62a63d527641bd?context=explore） 
+    environment:
+      MYSQL_ROOT_PASSWORD: passwd # password設定
+    volumes:
+      - ./.data:/var/lib/mysql # dataを永続化
+      - ./docker/mysql/init:/docker-entrypoint-initdb.d # 初期SQL
+      - ./docker/db/my.cnf:/usr/local/etc/my.cnf # MySQL設定
+    ports:
+      - 3306:3306
+    command: --default-authentication-plugin=mysql_native_password # 認証関連よくわかってない
+    container_name: mysql
