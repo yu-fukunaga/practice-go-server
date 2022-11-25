@@ -6,7 +6,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: passwd # password設定
     volumes:
-      - ./.data:/var/lib/mysql # dataを永続化
+      - ./data:/var/lib/mysql # dataを永続化
       - ./docker/mysql/init:/docker-entrypoint-initdb.d # 初期SQL
       - ./docker/db/my.cnf:/usr/local/etc/my.cnf # MySQL設定
     ports:
