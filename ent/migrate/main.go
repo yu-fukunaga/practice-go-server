@@ -32,6 +32,8 @@ func main() {
     // Migrate diff options.
     opts := []schema.MigrateOption{
         schema.WithDir(dir),                         // provide migration directory
+        // TODO: モードについて調べる必要あり
+        // ModeReplayだとスキーマ変更でエラーになるので、とりあえずInspectにしておく
         schema.WithMigrationMode(schema.ModeInspect), // provide migration mode
         schema.WithDialect(dialect.MySQL),           // Ent dialect to use
         schema.WithFormatter(atlas.DefaultFormatter),
