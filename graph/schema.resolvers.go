@@ -6,24 +6,39 @@ package graph
 import (
 	"context"
 	"fmt"
+	"log"
+	"practice-server/ent"
 	"practice-server/graph/generated"
 	"practice-server/graph/model"
 	"time"
+
+	"entgo.io/ent/dialect"
+	"golang.org/x/crypto/bcrypt"
 )
 
 // CreateUser is the resolver for the createUser field.
 func (r *mutationResolver) CreateUser(ctx context.Context, input model.NewUser) (*model.User, error) {
-	panic(fmt.Errorf("not implemented: CreateUser - createUser"))
-	// password, err := bcrypt.GenerateFromPassword([]byte(input.Password), 10)
-	// if err != nil {
-	// 	return nil, err
-	// }
-	// passwordHash := string(password)
-	// user, err := r.UserRepository.CreateUser(ctx, input.Name, input.Email, passwordHash)
-	// if err != nil {
-	// 	return nil, err
-	// }
-	// return user, nil
+	// TODO: userService的なものをを作る
+	// TODO: 既存ユーザーのチェックをする
+	hashed, err := bcrypt.GenerateFromPassword([]byte(input.Password), bcrypt.DefaultCost)
+	if err != nil {
+		return nil, err
+	}
+	passwordHash := string(hashed)
+	
+	client, err := ent.Open(dialect.MySQL, "file:ent?mode=memory&cache=shared&_fk=1")
+	if err != nil {
+			log.Fatalf("failed opening connection to sqlite: %v", err)
+	}
+	user, err := client.User.Create().SetUserName(input.Name).SetUserEmail(input.Email).SetPassHash(passwordHash).Save(ctx)
+	if err != nil {
+		return nil, err
+	}
+	return &model.User{
+		ID: user.ID.String(),
+		Name: user.UserName,
+		Email: user.UserEmail,
+	}, nil
 }
 
 // CreateTodo is the resolver for the createTodo field.

@@ -5,9 +5,11 @@ go 1.18
 require (
 	entgo.io/ent v0.11.4
 	github.com/99designs/gqlgen v0.17.20
+	github.com/golang-jwt/jwt v3.2.2+incompatible
 	github.com/google/uuid v1.3.0
 	github.com/spf13/cobra v1.6.1
 	github.com/vektah/gqlparser/v2 v2.5.1
+	golang.org/x/crypto v0.0.0-20220517005047-85d78b3ac167
 )
 
 require (
