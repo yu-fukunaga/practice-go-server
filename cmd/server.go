@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -19,7 +20,8 @@ var sampleCmd = &cobra.Command{
 	Short: "API server start",
 	Long:  "API server start",
 	Run: func(cmd *cobra.Command, args []string) {
-		port := os.Getenv("PORT")
+		port := os.Getenv("SAMPLE_PORT")
+		fmt.Println("port",port)
 		if port == "" {
 			port = defaultPort
 		}
