@@ -30,7 +30,7 @@ func (r *mutationResolver) CreateUser(ctx context.Context, input model.NewUser) 
 func (r *mutationResolver) CreateTodo(ctx context.Context, input model.NewTodo) (*model.Todo, error) {
 	todo := &model.Todo{
 		Text: input.Text,
-		ID:   fmt.Sprintf("T%d", time.Now()),
+		ID:   fmt.Sprintf("T%s", time.Now()),
 		User: &model.User{ID: input.UserID, Name: "user " + input.UserID},
 	}
 	r.todos = append(r.todos, todo)

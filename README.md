@@ -23,3 +23,10 @@ APIサーバー起動
 ```
 $ air
 ```
+
+```
+go generate .graph
+```
+```
+go generate .ent/schema
+```
